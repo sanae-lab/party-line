@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE PARTY LINE — Pick Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=VT323&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --aged: #e8dfc8;
+    --brown: #3d2b1f;
+    --copper: #b87333;
+    --green: #4a6741;
+    --red: #8b2020;
+    --wire-yellow: #d4a017;
+    --wire-red: #9b2335;
+    --wire-black: #1a1a1a;
+    --panel: #c8b89a;
+    --dark-panel: #6b5a45;
+    --signal: #00ff41;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #1a1410;
+    font-family: 'Courier Prime', monospace;
+    color: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  .masthead {
+    text-align: center;
+    padding: 2.5rem 1rem 1rem;
+    border-bottom: 3px double var(--copper);
+    background: linear-gradient(180deg, #0d0b08 0%, #1a1410 100%);
+    position: relative;
+  }
+
+  .masthead::after {
+    content: '— ESTABLISHED 1876 — TERMINATED 1991 —';
+    display: block;
+    font-family: 'Special Elite', cursive;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--copper);
+    opacity: 0.7;
+    margin-top: 0.4rem;
+  }
+
+  .title {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    color: var(--cream);
+    letter-spacing: 0.08em;
+    text-shadow: 2px 2px 0px var(--brown), 0 0 30px rgba(184,115,51,0.3);
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    color: var(--copper);
+    letter-spacing: 0.15em;
+    margin-top: 0.5rem;
+    opacity: 0.85;
+  }
+
+  /* STATIC BANNER */
+  .static-bar {
+    background: #0a0a0a;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 0.4rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .static-scroll {
+    display: inline-block;
+    animation: scroll-left 30s linear infinite;
+    font-family: 'VT323', monospace;
+    font-size: 0.9rem;
+    color: var(--signal);
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes scroll-left {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-100%); }
+  }
+
+  /* INTRO TEXT */
+  .intro {
+    max-width: 680px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+
+  .intro p {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--aged);
+    opacity: 0.85;
+  }
+
+  .intro .drop-cap::first-letter {
+    font-family: 'Special Elite', cursive;
+    font-size: 3.2rem;
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.1em;
+    margin-top: 0.15em;
+    color: var(--copper);
+  }
+
+  /* SWITCHBOARD */
+  .switchboard-container {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+  }
+
+  .board-label {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--copper);
+    text-align: center;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+  }
+
+  .switchboard {
+    background: linear-gradient(160deg, #5a4a35 0%, #3d2e1e 50%, #2a1f12 100%);
+    border: 4px solid var(--dark-panel);
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: 
+      inset 0 2px 8px rgba(0,0,0,0.6),
+      inset 0 -2px 4px rgba(255,255,255,0.05),
+      0 8px 32px rgba(0,0,0,0.8),
+      0 0 0 1px rgba(184,115,51,0.2);
+    position: relative;
+  }
+
+  .switchboard::before {
+    content: 'BELL TELEPHONE CO. — NEIGHBORHOOD EXCHANGE PANEL — MODEL 1940-B';
+    position: absolute;
+    top: 0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--panel);
+    opacity: 0.4;
+    white-space: nowrap;
+  }
+
+  .jacks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  /* JACK / LINE CARD */
+  .jack-card {
+    background: linear-gradient(145deg, #4a3825 0%, #2d1f0f 100%);
+    border: 2px solid #6b5030;
+    border-radius: 3px;
+    padding: 1rem 0.8rem 0.8rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4);
+  }
+
+  .jack-card:hover {
+    border-color: var(--copper);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4), 0 0 12px rgba(184,115,51,0.3);
+    transform: translateY(-1px);
+  }
+
+  .jack-card.active {
+    border-color: var(--signal);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5), 0 0 16px rgba(0,255,65,0.25);
+  }
+
+  .jack-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  /* The jack hole */
+  .jack-hole {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #4a3020, #0d0805);
+    border: 2px solid #8a6a45;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .jack-card.active .jack-hole {
+    background: radial-gradient(circle at 35% 35%, #1a4a1a, #002200);
+    border-color: var(--signal);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 0 6px rgba(0,255,65,0.5);
+  }
+
+  /* Indicator light */
+  .indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3a2010;
+    border: 1px solid #5a3a20;
+    margin-left: auto;
+    transition: all 0.3s;
+  }
+
+  .jack-card:hover .indicator,
+  .jack-card.active .indicator {
+    background: var(--signal);
+    box-shadow: 0 0 6px var(--signal);
+    animation: blink 1.2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .line-number {
+    font-family: 'VT323', monospace;
+    font-size: 0.75rem;
+    color: var(--panel);
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+  }
+
+  .line-name {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.85rem;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
+  }
+
+  .line-meta {
+    font-family: 'VT323', monospace;
+    font-size: 0.75rem;
+    color: var(--copper);
+    opacity: 0.7;
+  }
+
+  /* Wire decorations */
+  .wires {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    opacity: 0.4;
+  }
+
+  .wire {
+    height: 3px;
+    width: 20px;
+    border-radius: 2px;
+  }
+
+  /* LIGHTBOX / RECEIVER */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .receiver {
+    background: linear-gradient(160deg, #f5f0e8 0%, #ddd5be 100%);
+    border: 3px solid var(--brown);
+    border-radius: 4px;
+    max-width: 580px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.3);
+    position: relative;
+    animation: receiver-in 0.25s ease;
+  }
+
+  @keyframes receiver-in {
+    from { transform: scale(0.95) translateY(10px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .receiver-header {
+    background: linear-gradient(90deg, var(--brown) 0%, #5a3a20 100%);
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border-bottom: 2px solid var(--copper);
+  }
+
+  .receiver-jack {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #2a5a2a, #001400);
+    border: 2px solid var(--signal);
+    box-shadow: 0 0 8px rgba(0,255,65,0.4);
+    flex-shrink: 0;
+  }
+
+  .receiver-title {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.1rem;
+    color: var(--cream);
+    flex: 1;
+  }
+
+  .receiver-meta {
+    font-family: 'VT323', monospace;
+    font-size: 0.8rem;
+    color: var(--copper);
+    opacity: 0.8;
+  }
+
+  .close-btn {
+    background: none;
+    border: 1px solid rgba(245,240,232,0.3);
+    color: var(--cream);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .close-btn:hover {
+    background: rgba(245,240,232,0.15);
+    border-color: var(--cream);
+  }
+
+  .receiver-body {
+    padding: 1.5rem;
+    color: var(--brown);
+  }
+
+  .call-date {
+    font-family: 'VT323', monospace;
+    font-size: 0.9rem;
+    color: var(--dark-panel);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  .transcript {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: #2a1a0a;
+  }
+
+  .transcript .speaker {
+    font-weight: 700;
+    color: var(--red);
+  }
+
+  .transcript .stage-direction {
+    font-style: italic;
+    opacity: 0.55;
+    font-size: 0.82rem;
+  }
+
+  .transcript p {
+    margin-bottom: 0.8rem;
+  }
+
+  .static-note {
+    margin-top: 1.2rem;
+    padding: 0.8rem;
+    background: rgba(61,43,31,0.08);
+    border-left: 3px solid var(--copper);
+    font-family: 'Special Elite', cursive;
+    font-size: 0.78rem;
+    color: var(--dark-panel);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 3px double var(--copper);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 3rem;
+  }
+
+  .footer p {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--copper);
+    opacity: 0.55;
+    line-height: 2;
+  }
+
+  /* STATIC SOUND INDICATOR */
+  .listening-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .listening-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--signal);
+    animation: blink 0.8s ease-in-out infinite;
+  }
+
+  .listening-text {
+    font-family: 'VT323', monospace;
+    font-size: 0.85rem;
+    color: var(--green);
+    letter-spacing: 0.1em;
+  }
+
+  .audio-btn {
+    background: transparent;
+    border: 1px solid var(--signal);
+    color: var(--signal);
+    font-family: 'VT323', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .audio-btn:hover, .audio-btn.playing {
+    background: var(--signal);
+    color: #000;
+  }
+  .audio-btn.playing {
+    animation: pulse-btn 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse-btn {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  /* Scrollbar */
+  .receiver::-webkit-scrollbar { width: 6px; }
+  .receiver::-webkit-scrollbar-track { background: var(--aged); }
+  .receiver::-webkit-scrollbar-thumb { background: var(--brown); border-radius: 3px; }
+
+  @media (max-width: 500px) {
+    .jacks-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .switchboard { padding: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="title">THE PARTY LINE</div>
+  <div class="subtitle">// PICK UP THE RECEIVER — SOMEONE IS ALREADY TALKING //</div>
+</div>
+
+<div class="static-bar">
+  <span class="static-scroll">
+    ░░ LINE 4 ACTIVE ░░ NEIGHBORHOOD EXCHANGE ░░ YOU ARE NOT ALONE ON THIS LINE ░░ PICK UP ░░ SOMEONE IS HOME ░░ LINE 7 ACTIVE ░░ LAST PARTY LINE TERMINATED: 1991 ░░ 2.8 MILLION SUBSCRIBERS: 1987 ░░ PRIVACY WAS SOLD TO YOU AS AN UPGRADE ░░ LINE 2 ACTIVE ░░ PICK UP ░░
+  </span>
+</div>
+
+<div class="intro">
+  <p class="drop-cap">Before private lines, before cell phones, before the inbox — neighbors shared a single telephone wire. You picked up the receiver and someone else might already be talking. You were acoustically present in your community whether you liked it or not. The last party line in the United States was terminated in 1991. What follows are intercepted fragments. Pick up a line.</p>
+</div>
+
+<div class="switchboard-container">
+  <div class="board-label">▸ NEIGHBORHOOD EXCHANGE — SELECT A LINE TO INTERCEPT ◂</div>
+  <div class="switchboard">
+    <div class="jacks-grid" id="jacks"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>THIS IS AN ARCHIVE OF A LOST COMMONS / PARTY LINES WERE SHARED TELEPHONE CIRCUITS<br>
+  USED PRIMARILY IN RURAL AND WORKING-CLASS NEIGHBORHOODS / 1876 — 1991<br>
+  PRIVACY WAS NOT THE DEFAULT / IT WAS A PRODUCT SOLD TO REPLACE WHAT YOU HAD FOR FREE<br><br>
+  A SPECULATIVE ARTIFACT — MEDIA STUDIES — SANKOFA PROJECT 2026</p>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="receiver" id="receiver">
+    <div class="receiver-header">
+      <div class="receiver-jack"></div>
+      <div class="receiver-title" id="modal-title">LINE —</div>
+      <div class="receiver-meta" id="modal-meta"></div>
+      <button id="audio-btn" class="audio-btn">▶ PICK UP & LISTEN</button>
+      <button class="close-btn" onclick="closeOverlay()">✕</button>
+    </div>
+    <div class="receiver-body">
+      <div class="listening-bar">
+        <div class="listening-dot"></div>
+        <div class="listening-text">LINE OPEN — YOU ARE LISTENING IN</div>
+      </div>
+      <div class="call-date" id="modal-date"></div>
+      <div class="transcript" id="modal-transcript"></div>
+      <div class="static-note" id="modal-note"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const lines = [
+  {
+    number: "LINE 02",
+    name: "Kowalski & Reyes Households",
+    year: "c. 1954",
+    location: "Rural Ohio",
+    status: "ACTIVE",
+    wireColor: ["#d4a017", "#9b2335"],
+    transcript: `<p class="stage-direction">[line picked up mid-conversation, slight hiss of static]</p>
+<p><span class="speaker">MRS. KOWALSKI:</span> — the price of flour is up again at Hempel's, I don't know what Frank expects me to do about it —</p>
+<p><span class="speaker">MRS. REYES:</span> My sister gets hers from the co-op over in Millburg, I can give you the number if you want —</p>
+<p><span class="speaker">MRS. KOWALSKI:</span> Oh would you? Frank won't drive that far but I might get Tommy to take me on Saturday —</p>
+<p class="stage-direction">[third receiver lifts — audible breathing — neither woman acknowledges it]</p>
+<p><span class="speaker">MRS. REYES:</span> I heard the Pfeiffer boy is back from Korea. Did you see him at church?</p>
+<p><span class="speaker">MRS. KOWALSKI:</span> He looks thin. His mother doesn't say much about it. You know how she is.</p>
+<p class="stage-direction">[long pause. wind audible through the line.]</p>
+<p><span class="speaker">MRS. REYES:</span> I know how she is.</p>`,
+    note: "Party lines in rural Ohio often served 8–12 households on a single circuit. Each household had a distinct ring pattern — two longs and a short meant the Kowalskis. Lifting the receiver to listen was understood, if unspoken. The line was a neighborhood commons."
+  },
+  {
+    number: "LINE 07",
+    name: "Town Hall — Water Rights",
+    year: "c. 1962",
+    location: "Central Valley, California",
+    status: "ACTIVE",
+    wireColor: ["#4a6741", "#1a1a1a"],
+    transcript: `<p class="stage-direction">[open line, multiple voices, background noise of a meeting hall]</p>
+<p><span class="speaker">MODERATOR:</span> The floor recognizes Mr. Albanese.</p>
+<p><span class="speaker">MR. ALBANESE:</span> I've been farming this land for thirty years and I'm telling you the irrigation district has no right to redirect that channel without a vote —</p>
+<p><span class="speaker">VOICE FROM BACK:</span> Sit down, Sal —</p>
+<p><span class="speaker">MR. ALBANESE:</span> I will not sit down. My father dug that channel with his hands —</p>
+<p class="stage-direction">[applause from part of the room, shouting from another]</p>
+<p><span class="speaker">MODERATOR:</span> Order. Order please. Mrs. Tanaka, you had your hand up —</p>
+<p><span class="speaker">MRS. TANAKA:</span> I want to know who approved this study and whether anyone on this board has business with the contractors. That's my question. I want it on the record.</p>
+<p class="stage-direction">[silence. then murmuring. the line hisses.]</p>`,
+    note: "In some communities, town hall meetings were broadcast over shared party lines so homebound residents — the elderly, new mothers, the sick — could listen and sometimes speak. The line made civic participation ambient. You didn't have to be there. The meeting came to you."
+  },
+  {
+    number: "LINE 11",
+    name: "Dispatch — First Snow",
+    year: "c. 1947",
+    location: "Vermont",
+    status: "ACTIVE",
+    wireColor: ["#9b2335", "#1a1a1a"],
+    transcript: `<p class="stage-direction">[line opens. no greeting. immediate.]</p>
+<p><span class="speaker">DOROTHY:</span> It's coming down hard on Route 9. Tell the Hendersons not to try it tonight.</p>
+<p><span class="speaker">OPERATOR:</span> I'll put it on the line.</p>
+<p class="stage-direction">[click. then the operator lifts the shared circuit — all eight households on Line 11 can now hear]</p>
+<p><span class="speaker">OPERATOR:</span> Attention on Line 11. Dorothy Marsh says Route 9 is closed in the snow. Hendersons, Brody family, the Marsh girl says stay put tonight.</p>
+<p class="stage-direction">[two acknowledgment clicks. one long ring — the Brody household signaling received.]</p>
+<p><span class="speaker">UNKNOWN VOICE:</span> God bless her.</p>
+<p class="stage-direction">[line closes.]</p>`,
+    note: "Party lines functioned as emergency communication infrastructure in rural areas. Operators — almost always women — were community nervous systems. They knew who was sick, who needed help, whose husband hadn't come home. This labor was paid at near-poverty wages and disappeared entirely from historical memory when private lines made operators obsolete."
+  },
+  {
+    number: "LINE 14",
+    name: "The Argument",
+    year: "c. 1971",
+    location: "South Chicago",
+    status: "ACTIVE",
+    wireColor: ["#d4a017", "#4a6741"],
+    transcript: `<p class="stage-direction">[mid-conversation. voices raised.]</p>
+<p><span class="speaker">VOICE 1:</span> I'm not saying don't vote, I'm saying voting alone doesn't do it —</p>
+<p><span class="speaker">VOICE 2:</span> Then what does it do? Tell me. What does it do if not voting?</p>
+<p><span class="speaker">VOICE 1:</span> You have to show up. You have to be in the street. You have to make them uncomfortable —</p>
+<p><span class="speaker">VOICE 2:</span> I have three kids. I don't have time to make anyone uncomfortable.</p>
+<p class="stage-direction">[long pause]</p>
+<p><span class="speaker">VOICE 1:</span> I know. I know you don't. That's what they count on.</p>
+<p class="stage-direction">[a child's voice in the background, calling for someone]</p>
+<p><span class="speaker">VOICE 2:</span> Hold on — <span class="stage-direction">[muffled, away from receiver]</span> — I'm on the phone, baby, give me a minute.</p>
+<p class="stage-direction">[silence on the line. elsewhere on the circuit, another receiver is very quietly set down.]</p>`,
+    note: "Party lines in urban Black neighborhoods were surveilled by law enforcement during the civil rights and Black Power movements. The FBI's COINTELPRO program monitored shared telephone circuits. The intimacy of the party line — its openness — was also its vulnerability. The community commons was also a site of state surveillance."
+  },
+  {
+    number: "LINE 18",
+    name: "Last Call — Hazel, age 79",
+    year: "1991",
+    location: "Rural Indiana",
+    status: "CLOSED",
+    wireColor: ["#b87333", "#6b5a45"],
+    transcript: `<p class="stage-direction">[recorded by Indiana Bell technician during final party line decommission, October 1991]</p>
+<p><span class="speaker">HAZEL:</span> You're telling me I have to get a private line now.</p>
+<p><span class="speaker">TECHNICIAN:</span> Yes ma'am. We're transitioning all remaining party lines. You'll have your own number, your own line —</p>
+<p><span class="speaker">HAZEL:</span> I've been on this line since 1953. I talked to Margaret Ellison on this line when her husband passed. I heard the Greer baby born on this line — the ambulance dispatcher was on with the doctor the whole time, we all stayed on, nobody breathed. Do you understand what I'm telling you?</p>
+<p class="stage-direction">[silence from the technician]</p>
+<p><span class="speaker">HAZEL:</span> I'm not saying I won't take your private line. I'm saying you should know what you're taking away.</p>
+<p class="stage-direction">[end of recording]</p>`,
+    note: "The last party line in the United States was decommissioned in 1991. The shift to private lines was marketed as an upgrade — privacy, clarity, modernity. What it ended was the accidental commons of the shared circuit: the ambient awareness that you were embedded in a neighborhood, that your communication was not yours alone."
+  },
+  {
+    number: "LINE 26",
+    name: "The Okonkwo Household",
+    year: "c. 1966",
+    location: "Southeast Texas",
+    status: "ACTIVE",
+    wireColor: ["#4a6741", "#b87333"],
+    transcript: `<p class="stage-direction">[line already in use. a woman's voice, careful english, searching for the right words.]</p>
+<p><span class="speaker">MRS. OKONKWO:</span> I am calling for the Delaney house. I want to speak with Mrs. Delaney please.</p>
+<p><span class="speaker">CHILD'S VOICE:</span> She's in the garden. Who is this?</p>
+<p><span class="speaker">MRS. OKONKWO:</span> Tell her it is Ada from the church. Tell her I have the recipe she asked for at Sunday service.</p>
+<p class="stage-direction">[long pause. sound of a screen door.]</p>
+<p><span class="speaker">MRS. DELANEY:</span> Ada, I'm so glad you called. I told my sister about your stew and she didn't believe me.</p>
+<p><span class="speaker">MRS. OKONKWO:</span> It is my mother's recipe. From home. I have been making it here but some things I cannot find in the store so I make do.</p>
+<p><span class="speaker">MRS. DELANEY:</span> Well whatever you're using it is the best thing I have eaten in twenty years and I mean that.</p>
+<p class="stage-direction">[a small laugh. quiet, a little surprised.]</p>
+<p><span class="speaker">MRS. OKONKWO:</span> I will write it down for you. My daughter can bring it on Thursday.</p>
+<p class="stage-direction">[elsewhere on the line, someone sets their receiver down very gently.]</p>`,
+    note: "Nigerian immigration to the United States increased significantly after the Immigration and Nationality Act of 1965. For many immigrant families, the party line was one of the first points of contact with American neighbors — unscripted, unmediated, and often more honest than formal introductions. The shared line did not ask where you were from."
+  },
+  {
+    number: "LINE 29",
+    name: "Tommy Answers",
+    year: "c. 1959",
+    location: "Rural Kentucky",
+    status: "ACTIVE",
+    wireColor: ["#b87333", "#4a6741"],
+    transcript: `<p class="stage-direction">[one long ring, then a short. the Purcell household. phone picked up on the third ring.]</p>
+<p><span class="speaker">TOMMY:</span> Purcell residence.</p>
+<p><span class="speaker">MRS. GARRETT:</span> Tommy, is that you? Is your mother home?</p>
+<p><span class="speaker">TOMMY:</span> She's hanging laundry. Do you want me to get her?</p>
+<p><span class="speaker">MRS. GARRETT:</span> No no, that's alright. Can you write something down for me?</p>
+<p><span class="speaker">TOMMY:</span> I don't have a pencil.</p>
+<p><span class="speaker">MRS. GARRETT:</span> Go get one, I'll wait.</p>
+<p class="stage-direction">[silence. footsteps retreating. a door. footsteps returning.]</p>
+<p><span class="speaker">TOMMY:</span> Okay I have one.</p>
+<p><span class="speaker">MRS. GARRETT:</span> Tell your mother the Ladies' Auxiliary meeting is moved to Thursday on account of the Hendersons' roof. Wednesday won't work anymore.</p>
+<p><span class="speaker">TOMMY:</span> Thursday. Hendersons' roof.</p>
+<p><span class="speaker">MRS. GARRETT:</span> That's right. You're a good boy, Tommy.</p>
+<p class="stage-direction">[line clicks. Tommy sets the receiver down. the sound of the screen door opening as he goes back outside.]</p>`,
+    note: "Children were a routine part of party line communication — answering calls, taking messages, and serving as intermediaries between households. The party line assumed a household, not an individual. You called a place and whoever was home answered. That assumption, ordinary at the time, is nearly unimaginable now."
+  },
+  {
+    number: "LINE 23",
+    name: "Gossip & Grace",
+    year: "c. 1958",
+    location: "Mississippi Delta",
+    status: "ACTIVE",
+    wireColor: ["#9b2335", "#d4a017"],
+    transcript: `<p class="stage-direction">[afternoon. slow. summer heat audible somehow in the quality of the line.]</p>
+<p><span class="speaker">LORRAINE:</span> She wore white to the Henderson wedding. White. On purpose.</p>
+<p><span class="speaker">RUTH:</span> No.</p>
+<p><span class="speaker">LORRAINE:</span> I'm telling you. Everyone saw it.</p>
+<p><span class="speaker">RUTH:</span> What did Pauline do?</p>
+<p><span class="speaker">LORRAINE:</span> Pauline didn't do anything. Pauline has more class than that woman will ever have. Pauline danced. She danced all night.</p>
+<p class="stage-direction">[laughter. warm, unhurried.]</p>
+<p><span class="speaker">RUTH:</span> Good for Pauline.</p>
+<p><span class="speaker">LORRAINE:</span> Good for Pauline is right.</p>
+<p class="stage-direction">[a pause. the comfortable kind.]</p>
+<p><span class="speaker">RUTH:</span> How's your mother's knee?</p>
+<p><span class="speaker">LORRAINE:</span> Better. She's been using that salve Dr. Tanner gave her.</p>`,
+    note: "Gossip is not trivial. Scholars of oral culture — including Walter Ong and Robin Dunbar — have argued that gossip is a primary technology of social cohesion: it maps the community, enforces norms, builds trust, maintains bonds. The party line was gossip infrastructure. What replaced it extracted the same social data and sold it to advertisers."
+  }
+];
+
+// ── AUDIO ENGINE ──────────────────────────────────────────────
+let audioCtx = null;
+let staticNode = null, staticGain = null;
+let windNode = null, windLfo = null;
+let rustleTimer = null, crackleTimer = null;
+let allNodes = [];
+let activeUtterances = [];
+let audioStopped = true;   // starts true; explicitly set false when starting
+let isPlaying = false;
+let activeCard = null;
+
+function getCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+function noise(ctx, seconds) {
+  const n = Math.floor(ctx.sampleRate * seconds);
+  const buf = ctx.createBuffer(1, n, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+  return buf;
+}
+
+function startStatic(ctx, vol) {
+  const src = ctx.createBufferSource();
+  src.buffer = noise(ctx, 3); src.loop = true;
+  const bp = ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1800; bp.Q.value=0.4;
+  const g = ctx.createGain(); g.gain.value = vol;
+  src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+  src.start();
+  staticNode = src; staticGain = g;
+}
+
+function startWind(ctx, vol) {
+  const n = Math.floor(ctx.sampleRate * 4);
+  const buf = ctx.createBuffer(1, n, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+  for (let i=0;i<n;i++){const w=Math.random()*2-1;b0=.99886*b0+w*.0555179;b1=.99332*b1+w*.0750759;b2=.969*b2+w*.153852;b3=.8665*b3+w*.3104856;b4=.55*b4+w*.5329522;b5=-.7616*b5-w*.016898;d[i]=(b0+b1+b2+b3+b4+b5+b6+w*.5362)*.11;b6=w*.115926;}
+  const src = ctx.createBufferSource(); src.buffer=buf; src.loop=true;
+  const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=260;
+  const lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.07;
+  const lfoG = ctx.createGain(); lfoG.gain.value=vol*0.5;
+  const g = ctx.createGain(); g.gain.value=vol;
+  lfo.connect(lfoG); lfoG.connect(g.gain);
+  src.connect(lp); lp.connect(g); g.connect(ctx.destination);
+  src.start(); lfo.start();
+  windNode=src; windLfo=lfo;
+  allNodes.push(src,lfo);
+}
+
+function scheduleRustles(ctx) {
+  if (audioStopped) return;
+  const go = () => {
+    if (audioStopped) return;
+    const when = ctx.currentTime+0.02;
+    const dur = 0.07+Math.random()*0.2;
+    const src = ctx.createBufferSource(); src.buffer=noise(ctx,dur);
+    const bp = ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=800+Math.random()*700; bp.Q.value=1.8;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0,when); g.gain.linearRampToValueAtTime(0.06+Math.random()*0.06,when+dur*0.12); g.gain.exponentialRampToValueAtTime(0.001,when+dur);
+    src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+    src.start(when); src.stop(when+dur+0.05);
+    rustleTimer = setTimeout(go, 5000+Math.random()*12000);
+  };
+  rustleTimer = setTimeout(go, 1000+Math.random()*2000);
+}
+
+function scheduleCrackles(ctx) {
+  if (audioStopped) return;
+  const go = () => {
+    if (audioStopped) return;
+    const when = ctx.currentTime+0.01;
+    const src = ctx.createBufferSource(); src.buffer=noise(ctx,0.055);
+    const hp = ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=2200;
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0,when); g.gain.linearRampToValueAtTime(0.2+Math.random()*0.3,when+0.004); g.gain.exponentialRampToValueAtTime(0.001,when+0.05+Math.random()*0.05);
+    src.connect(hp); hp.connect(g); g.connect(ctx.destination);
+    src.start(when); src.stop(when+0.12);
+    crackleTimer = setTimeout(go, 1500+Math.random()*5000);
+  };
+  crackleTimer = setTimeout(go, 600+Math.random()*1500);
+}
+
+function playPickup(ctx) {
+  const w = ctx.currentTime+0.04;
+  const osc=ctx.createOscillator(); osc.type='sine';
+  osc.frequency.setValueAtTime(160,w); osc.frequency.exponentialRampToValueAtTime(55,w+0.14);
+  const g=ctx.createGain(); g.gain.setValueAtTime(0,w); g.gain.linearRampToValueAtTime(0.45,w+0.008); g.gain.exponentialRampToValueAtTime(0.001,w+0.2);
+  osc.connect(g); g.connect(ctx.destination); osc.start(w); osc.stop(w+0.22);
+  const csrc=ctx.createBufferSource(); csrc.buffer=noise(ctx,0.012);
+  const cg=ctx.createGain(); cg.gain.setValueAtTime(0.4,w); cg.gain.exponentialRampToValueAtTime(0.001,w+0.012);
+  csrc.connect(cg); cg.connect(ctx.destination); csrc.start(w); csrc.stop(w+0.015);
+}
+
+// ── Stage direction sounds ──────────────────────────────────────
+function classifyDirection(text) {
+  const t = text.toLowerCase();
+  if (/click|receiver|hang|plug|jack|connect|disconnect|closes|opens/.test(t)) return 'click';
+  if (/wind|breeze|draft/.test(t)) return 'wind_gust';
+  if (/static|hiss|crackle|buzz/.test(t)) return 'static_burst';
+  if (/silence|quiet|nobody|no one|pause|comfortable/.test(t)) return 'silence';
+  if (/ring|bell/.test(t)) return 'ring';
+  if (/applause|clapping/.test(t)) return 'applause';
+  if (/murmur|crowd|voices|background|meeting hall|shouting/.test(t)) return 'crowd';
+  if (/breath|breathing/.test(t)) return 'breath';
+  if (/laugh|laughter/.test(t)) return 'laugh';
+  if (/child|baby|kid/.test(t)) return 'child';
+  return 'ambient_pause';
+}
+
+function playDirectionSound(ctx, type) {
+  return new Promise(resolve => {
+    if (audioStopped) { resolve(); return; }
+    const w = ctx.currentTime + 0.05;
+    const done = (ms) => setTimeout(resolve, ms);
+
+    if (type === 'click') {
+      const src=ctx.createBufferSource(); src.buffer=noise(ctx,0.018);
+      const hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=1200;
+      const g=ctx.createGain(); g.gain.setValueAtTime(0.5,w); g.gain.exponentialRampToValueAtTime(0.001,w+0.018);
+      src.connect(hp); hp.connect(g); g.connect(ctx.destination); src.start(w); src.stop(w+0.025);
+      const osc=ctx.createOscillator(); osc.type='sine'; osc.frequency.setValueAtTime(140,w); osc.frequency.exponentialRampToValueAtTime(50,w+0.09);
+      const og=ctx.createGain(); og.gain.setValueAtTime(0.3,w); og.gain.exponentialRampToValueAtTime(0.001,w+0.1);
+      osc.connect(og); og.connect(ctx.destination); osc.start(w); osc.stop(w+0.12);
+      done(220);
+
+    } else if (type === 'wind_gust') {
+      const dur=2.2;
+      const src=ctx.createBufferSource(); src.buffer=noise(ctx,dur);
+      const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=320;
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(0,w); g.gain.linearRampToValueAtTime(0.18,w+dur*0.35); g.gain.linearRampToValueAtTime(0.08,w+dur*0.7); g.gain.linearRampToValueAtTime(0,w+dur);
+      src.connect(lp); lp.connect(g); g.connect(ctx.destination); src.start(w); src.stop(w+dur+0.1);
+      done(dur*1000+100);
+
+    } else if (type === 'static_burst') {
+      if (staticGain) {
+        const orig=staticGain.gain.value;
+        staticGain.gain.setValueAtTime(orig,w);
+        staticGain.gain.linearRampToValueAtTime(orig*7,w+0.04);
+        staticGain.gain.linearRampToValueAtTime(orig*3,w+0.15);
+        staticGain.gain.linearRampToValueAtTime(orig,w+0.55);
+      }
+      done(600);
+
+    } else if (type === 'silence') {
+      if (staticGain) {
+        const orig=staticGain.gain.value;
+        staticGain.gain.linearRampToValueAtTime(orig*0.15,w+0.15);
+        staticGain.gain.linearRampToValueAtTime(orig,w+1.8);
+      }
+      done(1900);
+
+    } else if (type === 'ring') {
+      [[w,0.35],[w+0.5,0.35]].forEach(([rw,rd])=>{
+        [700,1050].forEach(freq=>{
+          const o=ctx.createOscillator(); o.type='square'; o.frequency.value=freq;
+          const g=ctx.createGain(); g.gain.setValueAtTime(0,rw); g.gain.linearRampToValueAtTime(0.06,rw+0.01); g.gain.linearRampToValueAtTime(0,rw+rd);
+          o.connect(g); g.connect(ctx.destination); o.start(rw); o.stop(rw+rd+0.02);
+        });
+      });
+      done(1100);
+
+    } else if (type === 'applause') {
+      for(let k=0;k<6;k++){
+        const aw=w+k*0.28+Math.random()*0.06; const bd=0.08+Math.random()*0.1;
+        const src=ctx.createBufferSource(); src.buffer=noise(ctx,bd);
+        const bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1200+Math.random()*800; bp.Q.value=1.2;
+        const g=ctx.createGain(); g.gain.setValueAtTime(0,aw); g.gain.linearRampToValueAtTime(0.09+Math.random()*0.07,aw+0.01); g.gain.exponentialRampToValueAtTime(0.001,aw+bd);
+        src.connect(bp); bp.connect(g); g.connect(ctx.destination); src.start(aw); src.stop(aw+bd+0.05);
+      }
+      done(1800);
+
+    } else if (type === 'crowd') {
+      for(let k=0;k<4;k++){
+        const cw=w+k*0.2; const bd=0.6+Math.random()*0.5;
+        const src=ctx.createBufferSource(); src.buffer=noise(ctx,bd);
+        const bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=300+Math.random()*400; bp.Q.value=2;
+        const g=ctx.createGain(); g.gain.setValueAtTime(0,cw); g.gain.linearRampToValueAtTime(0.04+Math.random()*0.04,cw+0.15); g.gain.linearRampToValueAtTime(0,cw+bd);
+        src.connect(bp); bp.connect(g); g.connect(ctx.destination); src.start(cw); src.stop(cw+bd+0.05);
+      }
+      done(1500);
+
+    } else if (type === 'breath') {
+      const dur=0.55;
+      const src=ctx.createBufferSource(); src.buffer=noise(ctx,dur);
+      const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=700;
+      const g=ctx.createGain(); g.gain.setValueAtTime(0,w); g.gain.linearRampToValueAtTime(0.055,w+dur*0.3); g.gain.exponentialRampToValueAtTime(0.001,w+dur);
+      src.connect(lp); lp.connect(g); g.connect(ctx.destination); src.start(w); src.stop(w+dur+0.05);
+      done(600);
+
+    } else if (type === 'laugh') {
+      for(let k=0;k<4;k++){
+        const lw=w+k*0.16+Math.random()*0.04; const bd=0.1+Math.random()*0.07;
+        const src=ctx.createBufferSource(); src.buffer=noise(ctx,bd);
+        const bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=600+k*80; bp.Q.value=2.5;
+        const g=ctx.createGain(); g.gain.setValueAtTime(0,lw); g.gain.linearRampToValueAtTime(0.08,lw+0.02); g.gain.exponentialRampToValueAtTime(0.001,lw+bd);
+        src.connect(bp); bp.connect(g); g.connect(ctx.destination); src.start(lw); src.stop(lw+bd+0.04);
+      }
+      done(850);
+
+    } else if (type === 'child') {
+      const dur=0.7;
+      const src=ctx.createBufferSource(); src.buffer=noise(ctx,dur);
+      const bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1400; bp.Q.value=3;
+      const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2800;
+      const g=ctx.createGain(); g.gain.setValueAtTime(0,w); g.gain.linearRampToValueAtTime(0.06,w+0.08); g.gain.linearRampToValueAtTime(0,w+dur);
+      src.connect(bp); bp.connect(lp); lp.connect(g); g.connect(ctx.destination); src.start(w); src.stop(w+dur+0.05);
+      done(750);
+
+    } else {
+      // ambient_pause
+      if (staticGain) {
+        const orig=staticGain.gain.value;
+        staticGain.gain.linearRampToValueAtTime(orig*0.4,w+0.1);
+        staticGain.gain.linearRampToValueAtTime(orig,w+0.9);
+      }
+      done(800);
+    }
+  });
+}
+
+// ── Parse transcript — speech only, skip stage directions ───────
+function parseEvents(html) {
+  const div=document.createElement('div'); div.innerHTML=html;
+  const events=[];
+  div.querySelectorAll('p').forEach(p=>{
+    if (p.classList.contains('stage-direction')) return;
+    const sp=p.querySelector('.speaker');
+    const speaker=sp?sp.textContent.replace(':','').trim():'VOICE';
+    const txt=p.textContent.replace(sp?sp.textContent:'','').trim();
+    if(txt.length>2) events.push({type:'speech', speaker, text:txt});
+  });
+  return events;
+}
+
+function isFemale(speaker) {
+  const s = speaker.toUpperCase();
+  if (/\bMRS\b|\bMS\b|\bMISS\b/.test(s)) return true;
+  const femaleNames = ['DOROTHY','HAZEL','LORRAINE','RUTH','MARGARET','PAULINE','OPERATOR'];
+  return femaleNames.some(n => s.includes(n));
+}
+
+function isMale(speaker) {
+  const s = speaker.toUpperCase();
+  if (/\bMR\b/.test(s)) return true;
+  const maleNames = ['MODERATOR','TECHNICIAN','ALBANESE','FRANK','TOMMY'];
+  return maleNames.some(n => s.includes(n));
+}
+
+function speakLine(text, voiceIdx, pitch, onEnd, speaker) {
+  if (audioStopped) { onEnd && onEnd(); return; }
+  const utt=new SpeechSynthesisUtterance(text);
+  const allVoices=speechSynthesis.getVoices().filter(v=>v.lang.startsWith('en'));
+  
+  // Split into gendered pools — fall back to full list if pool is empty
+  const femaleVoices = allVoices.filter(v => /female|woman|girl|zira|samantha|victoria|karen|moira|fiona|susan|kate|lisa|amy|emma|emily|sophie|sarah/i.test(v.name));
+  const maleVoices = allVoices.filter(v => /male|man|guy|david|daniel|alex|fred|ralph|albert|george|arthur|oliver|thomas/i.test(v.name));
+
+  let pool = allVoices;
+  if (speaker && isFemale(speaker) && femaleVoices.length) pool = femaleVoices;
+  else if (speaker && isMale(speaker) && maleVoices.length) pool = maleVoices;
+
+  if(pool.length) utt.voice=pool[voiceIdx%pool.length];
+  utt.pitch=0.82+pitch; utt.rate=0.87+Math.random()*0.1; utt.volume=1;
+  utt.onend=()=>{ onEnd&&onEnd(); };
+  utt.onerror=()=>{ onEnd&&onEnd(); };
+  activeUtterances.push(utt);
+  speechSynthesis.speak(utt);
+}
+
+function stopAudio() {
+  audioStopped = true;
+  isPlaying = false;
+  speechSynthesis.cancel();
+  activeUtterances = [];
+  clearTimeout(rustleTimer); rustleTimer=null;
+  clearTimeout(crackleTimer); crackleTimer=null;
+  allNodes.forEach(n=>{ try{n.stop();}catch(e){} });
+  allNodes=[];
+  if(staticNode){try{staticNode.stop();}catch(e){} staticNode=null;}
+  if(windNode){try{windNode.stop();}catch(e){} windNode=null;}
+  if(windLfo){try{windLfo.stop();}catch(e){} windLfo=null;}
+  staticGain=null;
+}
+
+function startAmbient() {
+  audioStopped = false;
+  const ctx=getCtx();
+  startStatic(ctx, 0.022);
+  startWind(ctx, 0.016);
+  scheduleRustles(ctx);
+}
+
+function startFullPlayback(lineIndex) {
+  audioStopped = false;
+  const ctx=getCtx();
+  playPickup(ctx);
+  startStatic(ctx, 0.052);
+  startWind(ctx, 0.026);
+  scheduleRustles(ctx);
+  scheduleCrackles(ctx);
+
+  const events=parseEvents(lines[lineIndex].transcript);
+  if(!events.length) return;
+
+  const speakerMap={};
+  let vc=0;
+  events.forEach(e=>{ if(e.type==='speech'&&!(e.speaker in speakerMap)) speakerMap[e.speaker]={idx:vc++,pitch:Math.random()*0.28}; });
+
+  let i=0;
+  const next=()=>{
+    if(audioStopped||i>=events.length) return;
+    const ev=events[i++];
+    {
+      const vi=speakerMap[ev.speaker];
+      if(staticGain&&Math.random()>0.6){
+        const orig=staticGain.gain.value;
+        staticGain.gain.linearRampToValueAtTime(orig*3,ctx.currentTime+0.05);
+        staticGain.gain.linearRampToValueAtTime(orig,ctx.currentTime+0.28);
+      }
+      setTimeout(()=>{
+        speakLine(ev.text,vi.idx,vi.pitch,()=>{ if(!audioStopped) setTimeout(next,220+Math.random()*350); },ev.speaker);
+      }, i===1?900:200+Math.random()*380);
+    }
+  };
+
+  if(speechSynthesis.getVoices().length===0){
+    speechSynthesis.onvoiceschanged=next;
+  } else {
+    next();
+  }
+}
+
+// ── UI ──────────────────────────────────────────────────────────
+function renderJacks() {
+  const grid=document.getElementById('jacks');
+  lines.forEach((line,i)=>{
+    const card=document.createElement('div');
+    card.className='jack-card';
+    card.innerHTML=`
+      <div class="jack-header">
+        <div class="jack-hole"></div>
+        <div class="line-number">${line.number}</div>
+        <div class="indicator"></div>
+      </div>
+      <div class="line-name">${line.name}</div>
+      <div class="line-meta">${line.location} — ${line.year}</div>
+      <div class="wires">
+        <div class="wire" style="background:${line.wireColor[0]}"></div>
+        <div class="wire" style="background:${line.wireColor[1]}"></div>
+        <div class="wire" style="background:#3a2a1a"></div>
+      </div>`;
+    card.addEventListener('click',()=>openLine(i,card));
+    grid.appendChild(card);
+  });
+}
+
+function openLine(index,card){
+  stopAudio();
+  const line=lines[index];
+  if(activeCard) activeCard.classList.remove('active');
+  activeCard=card; card.classList.add('active');
+
+  document.getElementById('modal-title').textContent=`${line.number} — ${line.name}`;
+  document.getElementById('modal-meta').textContent=line.status;
+  document.getElementById('modal-date').textContent=`${line.location.toUpperCase()} / ${line.year} / STATUS: ${line.status}`;
+  document.getElementById('modal-transcript').innerHTML=line.transcript;
+  document.getElementById('modal-note').textContent=line.note;
+
+  const btn=document.getElementById('audio-btn');
+  btn.textContent='▶ PICK UP & LISTEN';
+  btn.classList.remove('playing');
+  btn.onclick=()=>toggleAudio(index,btn);
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // Start soft ambient after a beat
+  setTimeout(startAmbient, 300);
+}
+
+function toggleAudio(index,btn){
+  if(isPlaying){
+    stopAudio();
+    btn.textContent='▶ PICK UP & LISTEN';
+    btn.classList.remove('playing');
+    setTimeout(startAmbient,200);
+  } else {
+    stopAudio();
+    isPlaying=true;
+    btn.textContent='◼ HANG UP';
+    btn.classList.add('playing');
+    startFullPlayback(index);
+  }
+}
+
+function closeOverlay(){
+  stopAudio();
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+  if(activeCard){activeCard.classList.remove('active');activeCard=null;}
+}
+
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeOverlay();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOverlay();});
+
+// Unlock AudioContext + speech synthesis on very first user interaction
+function unlockAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  // Prime speech synthesis — browsers need a user-gesture triggered call first
+  if (speechSynthesis.getVoices().length === 0) {
+    speechSynthesis.onvoiceschanged = () => {};
+  }
+  const dummy = new SpeechSynthesisUtterance(' ');
+  dummy.volume = 0; dummy.rate = 10;
+  speechSynthesis.speak(dummy);
+  setTimeout(() => speechSynthesis.cancel(), 50);
+  document.removeEventListener('click', unlockAudio);
+  document.removeEventListener('touchstart', unlockAudio);
+}
+document.addEventListener('click', unlockAudio);
+document.addEventListener('touchstart', unlockAudio);
+
+renderJacks();
+</script>
+</body>
+</html>
